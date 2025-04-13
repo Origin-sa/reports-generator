@@ -20,7 +20,7 @@ class SARSymbol(Flowable):
         self.height = height
         
     def draw(self):
-        svg_path = 'Saudi_Riyal_Symbol.svg'
+        svg_path = 'assets/icons/currency/sar-symbol.svg'
         if os.path.exists(svg_path):
             drawing = svg2rlg(svg_path)
             # Scale to match text height
@@ -30,7 +30,7 @@ class SARSymbol(Flowable):
 
 def create_logo():
     # Use the actual logo image
-    logo_path = 'site-logo-bg-white.png'
+    logo_path = 'assets/images/logos/origin-meals-logo.png'
     if os.path.exists(logo_path):
         # Create image with fixed dimensions
         logo = Image(logo_path)
@@ -116,8 +116,8 @@ def get_subscription_data():
     total_subscriptions = len(df)
     total_revenue = df['Total price'].sum() if 'Total price' in df.columns else 0
     
-    # Set the report date to April 10, 2025
-    report_date = pd.Timestamp('2025-04-10')
+    # Set the report date to April 13, 2025
+    report_date = pd.Timestamp('2025-04-13')
     yesterday = report_date - pd.Timedelta(days=1)
     
     # Count new users for today and yesterday
@@ -187,15 +187,20 @@ def generate_sales_report():
     subscription_data = get_subscription_data()
     
     # Create a PDF document with date in filename
-    report_date = "2025-04-10"
+    report_date = "2025-04-12"
+    report_path = os.path.join('reports', f"origin_meals_sales_report_{report_date}.pdf")
     doc = SimpleDocTemplate(
-        f"origin_meals_sales_report_{report_date}.pdf",
+        report_path,
         pagesize=letter,
         rightMargin=36,  # Reduced margins
         leftMargin=36,
         topMargin=36,
         bottomMargin=36
     )
+
+    # Define paths to assets
+    svg_path = 'assets/icons/currency/sar-symbol.svg'
+    logo_path = 'assets/images/logos/origin-meals-logo.png'
 
     # Create styles
     styles = getSampleStyleSheet()
@@ -331,7 +336,7 @@ def generate_sales_report():
         ['New Subscriptions', ''],
         ['Today', f"{subscription_data['new_users_today']}"],
         ['Yesterday', f"{subscription_data['new_users_yesterday']}"],
-        ['Change vs Yesterday', Paragraph(f"<font color='red'>{subscription_data['new_users_change']:+.1f}%</font>", number_style)],
+        ['Change vs Yesterday', Paragraph(f"<font color='{'green' if subscription_data['new_users_change'] >= 0 else 'red'}'>{subscription_data['new_users_change']:+.1f}%</font>", number_style)],
         # Revenue Analysis Section
         ['Revenue Analysis', ''],
         ['New Subscriptions Revenue', format_currency(subscription_data['metrics']['new_users_revenue'])],
@@ -404,4 +409,4 @@ def generate_sales_report():
 
 if __name__ == "__main__":
     generate_sales_report()
-    print("\nSales report has been generated as 'origin_meals_sales_report.pdf'") 
+    print(f"\nSales report has been generated in reports directory") 

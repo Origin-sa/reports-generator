@@ -1,0 +1,64 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.env
+.venv
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.DS_Store
+
+# Project specific
+src/data/delivery_sales/*.csv
+src/data/delivery_sales/*.xlsx
+src/data/subscription_sales/*.csv
+src/data/subscription_sales/*.xlsx
+reports/*.pdf
+*.log
+
+# Assets
+assets/images/temp/
+assets/images/*.tmp
+assets/icons/temp/
+assets/fonts/temp/
+*.psd
+*.ai
+*.eps
+*.raw
+*.tiff
+*.bmp
+*.gif
+*.png~
+*.jpg~
+*.jpeg~
+
+# Local development
+.env
+.env.local
+.env.*.local 

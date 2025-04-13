@@ -10,6 +10,30 @@ A Python-based tool for generating daily sales reports for Origin Meals, includi
 - Provides detailed revenue analysis
 - Includes visual metrics and comparisons
 
+## Project Structure
+
+```
+reports-generator/
+├── src/
+│   ├── data/
+│   │   ├── delivery_sales/     # Foodics export files
+│   │   └── subscription_sales/ # Origin dashboard export files
+│   ├── utils/                  # Utility functions
+│   │   ├── data_processor.py   # Data processing utilities
+│   │   └── pdf_generator.py    # PDF generation utilities
+│   └── sales_report.py         # Main report generation script
+├── assets/
+│   ├── images/
+│   │   └── logos/             # Company logos
+│   ├── icons/
+│   │   └── currency/          # Currency symbols
+│   └── fonts/                 # Custom fonts
+├── reports/                   # Generated PDF reports
+├── requirements.txt           # Python dependencies
+└── README.md                 # Project documentation
+
+```
+
 ## Requirements
 
 - Python 3.8 or higher
@@ -17,6 +41,8 @@ A Python-based tool for generating daily sales reports for Origin Meals, includi
   - pandas
   - reportlab
   - openpyxl
+  - svglib
+  - matplotlib
 
 ## Installation
 
@@ -37,16 +63,19 @@ python3 -m pip install -r requirements.txt
 
 1. Place your data files in the appropriate directories:
 
-   - Delivery sales data in `delivery_sales/`
-   - Subscription data in `subscription_sales/`
+   - Delivery sales data: Place Foodics CSV exports in `src/data/delivery_sales/`
+   - Subscription data: Place Origin dashboard exports in `src/data/subscription_sales/`
 
 2. Run the report generator:
 
 ```bash
-python3 sales_report.py
+python3 src/sales_report.py
 ```
 
-3. The generated report will be saved as `origin_meals_sales_report_YYYY-MM-DD.pdf`
+3. The generated report will be saved in the `reports` directory as:
+   ```
+   reports/origin_meals_sales_report_YYYY-MM-DD.pdf
+   ```
 
 ## Report Contents
 
@@ -68,3 +97,15 @@ python3 sales_report.py
 
 - Delivery sales data: Exported CSV files from Foodics platform
 - Subscription data: Exported data from Origin subscription dashboard
+
+## Assets
+
+- Company logos and images are stored in `assets/images/`
+- Currency symbols and icons in `assets/icons/`
+- Custom fonts in `assets/fonts/`
+
+## Notes
+
+- Reports are generated with the current date in the filename
+- All monetary values are in Saudi Riyal (﷼)
+- Percentage changes are color-coded (green for positive, red for negative)
